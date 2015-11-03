@@ -1,47 +1,23 @@
 //Set valid date and define time units
 var tTest = Date.parse(new Date()) + 10;
+var time = 10;
+var div = document.getElementById('clock');
 
-function getTimeRemaining(endTime) {
-  var time = Number(endTime) - Number(new Date()),
-      seconds = Math.floor((time/1000 % 60)),
-      minutes = Math.floor( (time/1000/60) % 60 ),
-      hours = Math.floor( (time/(1000*60*60) % 24)),
-      days =  Math.floor( time/(1000*60*60*24) );
+// The countdown function
 
-  return {
-    total: time,
-    days: days,
-    hours: hours,
-    minutes: minutes,
-    seconds: seconds
-  };
+function timer() {
+  div.innerHTML = time;
+  if (time <= 0) {
+    div.innerHTML = "stopped";
+    clearInterval(running);
 
+  }
 
+  time -= 1;
 }
 
-//Pomodoro is displayed on DOM and user can see countdown
+var running = setInterval(timer, 1000);
 
-function initializeClock (clockObj, endTime) {
-  var clock = document.getElementById(clockObj),
-  function updateClock() {
-        var time = getTimeRemaining(endTime);
-        clock.innerHTML = 'days: ' + time.days + '<br>' +
-          'hours:' + time.hours + '<br>' +
-          'minutes: ' + time.minutes + '<br>' +
-          'seconds: ' + time.seconds;
-
-        if(t.total<=0) {
-          clearInterval(timeinterval);
-        }
-
-  updateClock(); // To avoid delay
-  var timeInt = setInterval(updateClock, 1000);
-
-      });
-
-}
-
-initializeClock('clock', tTest);
 //When user clicks on clock, it starts or stops after another click
 
 //Set pomodro clock time
