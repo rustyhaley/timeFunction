@@ -1,25 +1,29 @@
-//Set valid date and define time units
-var tTest = Date.parse(new Date()) + 10;
-var time = 10;
-var div = document.getElementById('clock');
-
-// The countdown function
+var milliseconds = 120 * 1000;
+var timeDiv = document.getElementById('time-area');
+var running = setInterval(timer, 1000);
 
 function timer() {
-  div.innerHTML = time;
-  if (time <= 0) {
-    div.innerHTML = "stopped";
+  var minAmt = timeConversion(milliseconds).minutes;
+  var secAmt = timeConversion(milliseconds).seconds;
+  timeDiv.innerHTML = minAmt + ':' + secAmt;
+  console.log(timeDiv.innerHTML = minAmt + ':' + secAmt);
+  if (minAmt < 10) {
+    timeDiv.innerHTML = '0' + minAmt + ":" + secAmt;
+  }
+  if (milliseconds <= 0) {
+    secAmt = 0;
     clearInterval(running);
+
 
   }
 
-  time -= 1;
+  milliseconds -= 1000;
 }
 
-var running = setInterval(timer, 1000);
+function timeConversion(rawTime) {
+  return {
+      minutes: Math.floor(milliseconds/(60000)),
+      seconds: Math.floor(milliseconds/1000)
+  }
 
-//When user clicks on clock, it starts or stops after another click
-
-//Set pomodro clock time
-
-//Set break time
+}
