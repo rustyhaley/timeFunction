@@ -1,4 +1,5 @@
-var inputMin = 5,
+var inputMin = 1,
+    inputMinBreak = 2,
     currentTime = new Date().getTime(),
     endTime = new Date(),
     timeDiv = document.getElementById('time-area'),
@@ -31,7 +32,7 @@ function update() {
 
 
   if(minAmt <=0 && secAmt <=0) {
-    clearInterval(running);
+    startTimer(inputMinBreak);
   }
 
 }
@@ -40,7 +41,7 @@ function update() {
 
 function timeConversion(currentTime) {
   var length = (endTime - currentTime);
-  
+
   return {
       minutes: Math.floor(length/60000),
       seconds: Math.floor((length/1000) % 60)
@@ -49,14 +50,13 @@ function timeConversion(currentTime) {
 }
 
 
-function startTimer() {
-  endTime.setMinutes(endTime.getMinutes() + inputMin);
+function startTimer(iTime) {
+  endTime.setMinutes(endTime.getMinutes() + iTime);
 
   running = setInterval(update, 1000);
 
 }
 
-startTimer();
+startTimer(inputMin);
 
 //Helper functions
-  //Break timer function which runs after the "work" timer function   finishes
