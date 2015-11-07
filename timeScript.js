@@ -1,23 +1,24 @@
-var inputMin = 1,
+var inputMin = 5,
     currentTime = new Date().getTime(),
     endTime = new Date(),
     timeDiv = document.getElementById('time-area'),
-    running;
+    running,
+    output;
 
 //UI functions
 
 function render(min, sec) {
-
-  timeDiv.innerHTML = min + ':' + sec;
+  output = min + ":" + sec;
 
   if(min < 10) {
-    timeDiv.innerHTML = '0' + min + ":" + sec;
+    output = '0' + min + ":" + sec;
   }
   if(sec < 10) {
-    timeDiv.innerHtml = '0' + min + ":" + sec;
+    output = '0' + min + ":" + sec;
 
-    console.log(timeDiv.innerHTML = min + ':' + sec);
   }
+
+  timeDiv.innerHTML = output;
 }
 
 function update() {
@@ -26,7 +27,6 @@ function update() {
   var minAmt = timeConversion(currentTime).minutes;
   var secAmt = timeConversion(currentTime).seconds;
 
-  console.log(minAmt + secAmt);
   render(minAmt, secAmt);
 
 
@@ -38,10 +38,11 @@ function update() {
 
 //Calculation functions
 
-function timeConversion(rawTime) {
-  var length = (endTime - rawTime);
+function timeConversion(currentTime) {
+  var length = (endTime - currentTime);
+  
   return {
-      minutes: Math.floor(length/600000),
+      minutes: Math.floor(length/60000),
       seconds: Math.floor((length/1000) % 60)
   }
 
