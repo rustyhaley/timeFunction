@@ -1,23 +1,41 @@
-var inputMin = 1,
-    currentTime = new Date().getTime(),
-    endTime = new Date(),
-    timeDiv = document.getElementById('time-area'),
-    running;
+var currentTime = new Date().getTime(),
+  endTime = new Date(),
+  timeDiv = document.getElementById('time-area'),
+  breakDiv = document.getElementById('break-area'),
+  workDiv = parseInt(document.getElementById("worktimer").innerHTML),
+  breakDiv = parseInt(document.getElementById("breaktimer").innerHTML),
+  resetButton = document.getElementById('reset'),
+  running = -1,
+  output,
+  workbreak = true;
 
-//UI functions
 
-function render(min, sec) {
+//UI functions(DOM)
+resetButton.addEventListener("click", function() {
+  stopTimer(running);
+  startTimer(
+    Number(document.getElementById("worktimer").innerHTML)
+  );
+  workbreak = true;
+});
 
-  timeDiv.innerHTML = min + ':' + sec;
+function render(min, sec, div) {
+  var output;
 
-  if(min < 10) {
-    timeDiv.innerHTML = '0' + min + ":" + sec;
+  output = min + ":" + sec;
+  if (min < 10) {
+    output = '0' + min + ":";
+  } else {
+    output = min + ":";
   }
-  if(sec < 10) {
-    timeDiv.innerHtml = '0' + min + ":" + sec;
-
-    console.log(timeDiv.innerHTML = min + ':' + sec);
+  if (sec < 10) {
+    output += '0' + sec;
+  } else {
+    output += sec;
   }
+
+  div.innerHTML = output;
+
 }
 
 function update() {
@@ -25,37 +43,63 @@ function update() {
 
   var minAmt = timeConversion(currentTime).minutes;
   var secAmt = timeConversion(currentTime).seconds;
-
-  console.log(minAmt + secAmt);
-  render(minAmt, secAmt);
-
-
-  if(minAmt <=0 && secAmt <=0) {
-    clearInterval(running);
+  if (workbreak) {
+    render(minAmt, secAmt, timeDiv);
+  } else {
+    render(minAmt, secAmt, breakDiv);
+  }
+  // render(minAmt, secAmt, timeDiv);
+  if (minAmt <= 0 && secAmt <= 0) {
+    switchTimer(document.getElementById("breaktimer").innerHTML);
   }
 
 }
 
 //Calculation functions
 
-function timeConversion(rawTime) {
-  var length = (endTime - rawTime);
+function timeConversion(currentTime) {
+  currentTime = new Date();
+  var length = (endTime - currentTime);
   return {
-      minutes: Math.floor(length/600000),
-      seconds: Math.floor((length/1000) % 60)
+    minutes: Math.floor(length / 60000),
+    seconds: Math.floor((length / 1000) % 60)
   }
 
 }
 
-
-function startTimer() {
-  endTime.setMinutes(endTime.getMinutes() + inputMin);
-
-  running = setInterval(update, 1000);
-
+function stopTimer(r) {
+  console.log("remove timer id ", r);
+  clearInterval(r);
+  running = -1;
 }
 
-startTimer();
+function startTimer(iTime) {
+  if (running > 0) {
+    stopTimer(running);
+  }
+  endTime = new Date();
+  //add one minute
+  endTime.setSeconds(endTime.getSeconds() + iTime + 1);
+
+  running = setInterval(update, 100);
+  console.log("new timer id: ", running);
+}
+
+//startTimer(inputMin);
 
 //Helper functions
-  //Break timer function which runs after the "work" timer function   finishes
+function switchTimer(inputTime) {
+  //var minAmt = timeConversion(currentTime).minutes;
+  //var secAmt = timeConversion(currentTime).seconds;
+  //render(minAmt, secAmt, breakDiv);
+  if (workbreak) {
+    workbreak = false;
+    stopTimer(running);
+    startTimer(
+      Number(document.getElementById("breaktimer").innerHTML)
+    );
+  } else {
+    stopTimer(running);
+
+  }
+}
