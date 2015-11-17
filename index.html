@@ -1,12 +1,39 @@
 <html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
+  <link rel="stylesheet" href="main.css">
   <title>Pomodro</title>
 </head>
 <body>
   <div id="worktimer">3</div>
   <div id="breaktimer">3</div>
   <div id="time-area">00:00</div>
-  <div id="break-area">00:00</div>
   <button id="reset">Reset</div>
+</body>
+</html>
+<html lang="en"><head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta charset="UTF-8" />
+  <title>Pomodro</title>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Pomodoro Timer</h1>
+      <div class="timer" id="time-area">00:00</div>
+    </div>
+
+  <ul class="adjuster">
+    <li id="workMinAdd">+</li>
+    <li class="adjuster-input"> <span id="worktimer">5</span>:00</li>
+    <li id="workMinMinus">-</li>
+  </ul>
+
+  <button class="play-reset" id="reset">Play/Reset</button>
+
+  <ul class="adjuster">
+    <li id="breakMinAdd">+</li>
+    <li class="adjuster-input"> <span id="breaktimer">3</span>:00</li>
+    <li id="breakMinMinus">-</li>
+
+  </div>
 </body>
 </html>

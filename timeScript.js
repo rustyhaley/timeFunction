@@ -2,15 +2,58 @@ var currentTime = new Date().getTime(),
   endTime = new Date(),
   timeDiv = document.getElementById('time-area'),
   breakDiv = document.getElementById('break-area'),
-  workDiv = parseInt(document.getElementById("worktimer").innerHTML),
-  breakDiv = parseInt(document.getElementById("breaktimer").innerHTML),
   resetButton = document.getElementById('reset'),
+  workMinAdd = document.getElementById('workMinAdd'),
+  workMinMinus = document.getElementById('workMinMinus'),
+  breakMinAdd = document.getElementById('breakMinAdd'),
+  breakMinMinus = document.getElementById('breakMinMinus'),
+  workTime = document.getElementById('worktimer'),
+  breakTime = document.getElementById('breaktimer'),
+  workInput = 25,
+  breakInput = 5,
   running = -1,
   output,
   workbreak = true;
 
-
 //UI functions(DOM)
+
+workTime.innerHTML = workInput;
+breakTime.innerHTML = breakInput;
+
+workMinAdd.addEventListener("click", function() {
+  workInput += 1;
+  workTime.innerHTML = workInput;
+
+});
+
+workMinMinus.addEventListener("click", function() {
+  if (workInput > 1) {
+    workInput -= 1;
+    workTime.innerHTML = workInput;
+    console.log(workInput);
+  } else {
+    alert("You cannot have zero work time.");
+
+  }
+});
+
+breakMinAdd.addEventListener("click", function() {
+  breakInput += 1;
+  breakTime.innerHTML = breakInput;
+
+});
+
+breakMinMinus.addEventListener("click", function() {
+  if (breakInput > 1) {
+    breakInput -= 1;
+    breakTime.innerHTML = breakInput;
+
+  } else {
+    alert("Why are you trying to do? Work yourself to death? You can't have zero break time.");
+
+  }
+});
+
 resetButton.addEventListener("click", function() {
   stopTimer(running);
   startTimer(
@@ -34,7 +77,7 @@ function render(min, sec, div) {
     output += sec;
   }
 
-  div.innerHTML = output;
+  timeDiv.innerHTML = output;
 
 }
 
@@ -67,6 +110,11 @@ function timeConversion(currentTime) {
 
 }
 
+function endTimeCalculation(inputTime) {
+  return endTime.setMinutes(endTime.getMinutes() + inputTime);
+
+}
+
 function stopTimer(r) {
   console.log("remove timer id ", r);
   clearInterval(r);
@@ -79,19 +127,14 @@ function startTimer(iTime) {
   }
   endTime = new Date();
   //add one minute
-  endTime.setSeconds(endTime.getSeconds() + iTime + 1);
+  endTimeCalculation(iTime);
 
   running = setInterval(update, 100);
   console.log("new timer id: ", running);
 }
 
-//startTimer(inputMin);
-
 //Helper functions
 function switchTimer(inputTime) {
-  //var minAmt = timeConversion(currentTime).minutes;
-  //var secAmt = timeConversion(currentTime).seconds;
-  //render(minAmt, secAmt, breakDiv);
   if (workbreak) {
     workbreak = false;
     stopTimer(running);

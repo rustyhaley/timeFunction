@@ -1,4 +1,86 @@
 body {
-  background: #282828;
+  background-color: #282828;
   color: white;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  margin:0;
+
+}
+h1 {
+  font-family: "Indie Flower";
+  margin: 0;
+  font-size: 3em;
+  color: #ffff80;
+
+}
+
+ul {
+  display: inline-block;
+  list-style: none;
+  margin-top: 10%;
+  padding-left: 0;
+
+}
+
+li {
+  padding: 30px;
+
+}
+
+li:nth-child(odd) {
+  padding: 20px;
+  background: tomato;
+
+}
+
+.container {
+  text-align: center;
+}
+
+.header {
+
+  background: url("https://images.unsplash.com/photo-1444731961956-751ed90465a5?ixlib=rb-0.3.5&q=80&fm=jpg&s=04c828b3f56874eaa3e3951b8bed1c83");
+  background-size: cover;
+  background-position: 0px -700px, center;
+  background-repeat: no-repeat;
+  text-align: center;
+  padding: 20px;
+  padding-bottom: 100px;
+
+}
+
+.timer {
+  display: inline-block;
+  background-color: rgb(40, 40, 40);
+  padding: 10px;
+  margin-top: 50px;
+  font-size: 2.8em;
+  color: yellow;
+
+}
+
+.play-reset {
+  display: inline;
+  font-size: 1.2em;
+  padding: 20px;
+  margin-left: 100px;
+  margin-right: 100px;
+
+
+}
+
+.adjuster {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.adjuster-input {
+  background: #FFF;
+  color: black;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
 }
