@@ -49,7 +49,7 @@ breakMinMinus.addEventListener("click", function() {
     breakTime.innerHTML = breakInput;
 
   } else {
-    alert("Why are you trying to do? Work yourself to death? You can't have zero break time.");
+    alert("What are you trying to do? Work yourself to death? You can't have zero break time.");
 
   }
 });
